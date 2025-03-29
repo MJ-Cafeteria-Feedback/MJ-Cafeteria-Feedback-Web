@@ -1,54 +1,26 @@
-# React + TypeScript + Vite
+## 🚀 학생식당 웹 개선 프로젝트 프론트
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+학생 식당 사이트 개선을 위한 프로젝트입니다.
+그 중 '학식 리뷰 및 피드백 수집'을을 개발합니다.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Git Branch & Git Flow
 
-## Expanding the ESLint configuration
+| 브랜치명 | 작업 내용             |
+|----------|----------------------|
+| `main`   | 최종 브랜치          |
+| `develop` (default) | 개발 브랜치          |
+| `feature`| 기능 작업 브랜치     |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 📝 Git Commit Message Convention
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+| 헤더     | 내용                                  |
+|----------|---------------------------------------|
+| `feat`   | 새로운 기능 추가                      |
+| `refactor` | 코드 리팩토링                        |
+| `fix`    | 버그 수정                             |
+| `style`  | 스타일 변경, 주석 제거 등             |
+| `setting`| 빌드수행, 패키지 설치, 환경 설정 수정 등 |
+| `docs`   | README 등 문서 수정                   |
+| `chore`  | 코드, 문서 외 잡일                    |
