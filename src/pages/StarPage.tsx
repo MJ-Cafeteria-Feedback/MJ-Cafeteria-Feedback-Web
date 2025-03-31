@@ -2,9 +2,14 @@ import { useState } from 'react';
 import * as S from '../styles/Home/StarPageStyle';
 import LightButton from '../components/button/LightButton';
 import { FaStar, FaRegStar, FaStarHalfAlt } from 'react-icons/fa';
+import { useLocation } from 'react-router-dom';
+import { postStarRate } from '../api/starRate';
 
 const StarPage = () => {
-	const [stars, setStars] = useState<number[]>([0, 0, 0, 0, 0]); // 0: 빈 별, 1: 반 별, 2: 꽉 찬 별
+  const location = useLocation();
+  const mealType = location.state?.mealType || "default";
+
+   const [stars, setStars] = useState<number[]>([0, 0, 0, 0, 0]); // 0: 빈 별, 1: 반 별, 2: 꽉 찬 별
 
   const handleClick = (index: number) => {
     setStars((prev) =>
@@ -27,25 +32,38 @@ const StarPage = () => {
     }
   };
 
+  const fetchPostStarRating = async(mealType:string, star:number) => {
+    try{
+      await postStarRate(mealType, star);
+    } catch(error){
+      throw error;
+    }
+  }
+
   return (
-		<S.Wrapper>
-			<S.Title>오늘 학식의 만족도를 평가해주세요!</S.Title>
-			<S.StarsWrapper>
-				{stars.map((state, index) => (
-					<S.StarButton 
-						key={index} 
-						onClick={() => handleClick(index)}
-					>
-						{renderIcon(state)}
-					</S.StarButton>
-				))}
-			</S.StarsWrapper>
-			<LightButton
-				text="확인"
-				onClick={() => console.log('각 별 상태:', stars)}
-			/>
-			{/* <p>선택한 별점: {(stars.reduce((sum, s) => sum + s, 0) / 2).toFixed(1)}점</p> */}
-		</S.Wrapper>
+      <S.Wrapper>
+         <S.Title>오늘 학식의 만족도를 평가해주세요!</S.Title>
+         <S.StarsWrapper>
+            {stars.map((state, index) => (
+               <S.StarButton 
+                  key={index} 
+                  onClick={() => handleClick(index)}
+               >
+                  {renderIcon(state)}
+               </S.StarButton>
+            ))}
+         </S.StarsWrapper>
+         <LightButton
+        text="확인"
+        onClick={() => {
+          const rating = (stars.reduce((sum, s) => sum + s, 0) / 2).toFixed(1);
+          console.log("각 별 상태:", stars);
+          fetchPostStarRating(mealType,Number(rating)); // 별점 값을 전달
+        }}
+      />
+
+         {/* <p>선택한 별점: {(stars.reduce((sum, s) => sum + s, 0) / 2).toFixed(1)}점</p> */}
+      </S.Wrapper>
   );
 };
 
