@@ -5,11 +5,23 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-
+export const EmptyWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 export const Title = styled.h2`
   font-size: 18px;
   font-weight: 600;
   margin-top: 148px;
+  margin-bottom: 149px;
+  font: var(--SectionTitle);
+  color: var(--Headline);
+`;
+export const EmptyTitle = styled.h2`
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 303px;
   margin-bottom: 149px;
   font: var(--SectionTitle);
   color: var(--Headline);
