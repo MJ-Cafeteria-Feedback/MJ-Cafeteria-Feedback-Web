@@ -1,0 +1,1 @@
+export const isMobile = '@media (min-width: 390px) and (max-width: 799px)';

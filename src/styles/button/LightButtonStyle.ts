@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { isMobile } from "../../hooks/Media";
 
 export const Button = styled.button`
   width: 180px;
@@ -18,5 +19,10 @@ export const Button = styled.button`
   &:disabled {
     background-color: #ccc;
     cursor: not-allowed;
+	${isMobile}{
+	width: 119px;
+    height: 58px;
   }
+  }
+ 
 `;

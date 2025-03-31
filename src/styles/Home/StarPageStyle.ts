@@ -7,8 +7,6 @@ export const Wrapper = styled.div`
 `;
 
 export const Title = styled.h2`
-  font-size: 18px;
-  font-weight: 600;
   margin-top: 148px;
   margin-bottom: 97px;
   font: var(--SectionTitle);
