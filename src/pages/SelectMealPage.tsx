@@ -33,7 +33,7 @@ const SelectMealPage = () => {
 					<S.ImageBox src={LunchImg} alt="중식 이미지" />
 					<LightButton
 						text="중식 선택"
-						onClick={() => navigate('/star')}
+						onClick={() => navigate('/star', {state:{mealType:"LUNCH"}})}
 					/>
 				</S.OptionCard>
 
@@ -41,7 +41,7 @@ const SelectMealPage = () => {
 					<S.ImageBox src={DinnerImg} alt="석식 이미지" />
 					<LightButton
 						text="석식 선택"
-						onClick={() => navigate('/star')}
+						onClick={() => navigate('/star', {state:{mealType:"DINNER"}})}
 					/>
 				</S.OptionCard>
 			</S.OptionsWrapper>
