@@ -23,7 +23,7 @@ const HomePage = () => {
 					<S.ImageBox src={WithNameImg} alt="실명 이미지" />
 					<LightButton
 						text="실명 선택"
-						onClick={() => console.log('로그인 페이지로 이동')}
+						onClick={() => {console.log('로그인 페이지로 이동'); navigate('login')}}
 					/>
 				</S.OptionCard>
 			</S.OptionsWrapper>

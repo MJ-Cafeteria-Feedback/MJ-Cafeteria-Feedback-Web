@@ -10,6 +10,7 @@ export const Inner = styled.div`
   align-items: center;
   height: 80px;
   padding: 0 24px;
+  cursor: pointer;
 
   img {
     height: 40px; 

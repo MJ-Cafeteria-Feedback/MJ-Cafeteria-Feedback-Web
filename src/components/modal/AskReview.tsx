@@ -16,7 +16,7 @@ const AskReview = ({ onClose, onConfirm }: AskReviewProps) => {
 				<S.Message>메뉴에 대한 리뷰도 작성하시겠습니까?</S.Message>
 				<S.ButtonGroup>
 					<CancelButton text="취소" onClick={()=>{onClose; navigate('/review')}} />
-					<LightButton text="확인" onClick={onConfirm} />
+					<LightButton text="확인" onClick={()=>{onConfirm; navigate('/select-review-menu')}} />
 				</S.ButtonGroup>
 			</S.ModalWrapper>
 		</S.Overlay>
