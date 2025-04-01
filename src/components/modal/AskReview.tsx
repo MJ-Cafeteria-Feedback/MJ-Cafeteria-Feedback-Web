@@ -12,14 +12,14 @@ interface AskReviewProps {
 const AskReview = ({ mealType, rating }: AskReviewProps) => {
 	const navigate = useNavigate();
 	
-		const fetchPostStarRating = async (mealType: string, star: number) => {
-			try {
-				await postStarRate(mealType, star);
-				console.log('별점 POST 성공');
-			} catch (error) {
-				console.error('별점 POST 실패:', error);
-			}
-		};
+	const fetchPostStarRating = async (mealType: string, star: number) => {
+		try {
+			await postStarRate(mealType, star);
+			console.log('별점 POST 성공');
+		} catch (error) {
+			console.error('별점 POST 실패:', error);
+		}
+	};
 	return (
 		<S.Overlay>
 			<S.ModalWrapper>
