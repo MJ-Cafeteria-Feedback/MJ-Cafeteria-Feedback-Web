@@ -3,7 +3,6 @@ import * as S from '../styles/Home/StarPageStyle';
 import LightButton from '../components/button/LightButton';
 import { FaStar, FaRegStar, FaStarHalfAlt } from 'react-icons/fa';
 import { useLocation } from 'react-router-dom';
-import { postStarRate } from '../api/starRate'
 import AskReview from '../components/modal/AskReview';
 
 const StarPage = () => {
@@ -34,23 +33,8 @@ const StarPage = () => {
 		}
 	};
 
-	const fetchPostStarRating = async (mealType: string, star: number) => {
-		try {
-			await postStarRate(mealType, star);
-			console.log('별점 POST 성공');
-		} catch (error) {
-			console.error('별점 POST 실패:', error);
-		}
-	};
-
 	const handleLightButtonClick = () => {
 		setShowModal(true);
-	};
-	const handleModalConfirm = () => {
-		const rating = (stars.reduce((sum, s) => sum + s, 0) / 2).toFixed(1);
-		console.log("각 별 상태:", stars, "별점:", rating);
-		fetchPostStarRating(mealType, Number(rating));
-		setShowModal(false);
 	};
 
 	return (
@@ -71,8 +55,8 @@ const StarPage = () => {
 
 			{showModal && (
 				<AskReview
-					onClose={() => setShowModal(false)}
-					onConfirm={handleModalConfirm}
+          mealType = {mealType}
+          rating = {Number((stars.reduce((sum, s) => sum + s, 0) / 2).toFixed(1))}
 				/>
 			)}
 			{/* <p>선택한 별점: {(stars.reduce((sum, s) => sum + s, 0) / 2).toFixed(1)}점</p> */}
