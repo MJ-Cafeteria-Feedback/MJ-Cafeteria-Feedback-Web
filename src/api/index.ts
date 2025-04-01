@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://localhost:8080/",
-  timeout: 2000,
+	baseURL: "http://localhost:8080/",
+	timeout: 5000,
 });
 //cors error 확인 필요

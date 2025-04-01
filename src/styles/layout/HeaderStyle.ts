@@ -12,12 +12,13 @@ export const Inner = styled.div`
   padding: 0 24px;
 
   img {
-    height: 40px; /* 필요시 로고 크기 조정 */
+    height: 40px; 
   }
 `;
 
 export const BottomBorder = styled.div`
   width: 100%;
-  height: 5px;
+  height: 4px;
   background-color: #002a68;
 `;
+

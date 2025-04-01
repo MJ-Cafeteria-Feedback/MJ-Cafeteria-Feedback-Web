@@ -45,8 +45,9 @@ export const ImageBox = styled.img`
   width: 451px;
   height: 241px;
   background-color: #eaecff;
-  padding: 20px;
-  border-radius: 8px;
+  padding-top: 11px;
+  padding-bottom: 12px;
+  border-radius: 4px;
   margin-bottom: 97px;
   transition: all 0.3s ease-in-out;
   ${isMobile}{
@@ -63,6 +64,11 @@ export const EmptyTitle = styled.h2`
   margin-bottom: 149px;
   font: var(--SectionTitle);
   color: var(--Headline);
+  transition: all 0.3s ease-in-out;
+  ${isMobile}{
+	font: var(--MenuTitle);
+	margin-top: 280px;
+  }
 `;
 
 export const EmptyWrapper = styled.div`

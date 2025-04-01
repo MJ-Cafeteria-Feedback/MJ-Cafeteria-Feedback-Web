@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { isMobile } from "../../hooks/Media";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -7,10 +8,15 @@ export const Wrapper = styled.div`
 `;
 
 export const Title = styled.h2`
-  margin-top: 148px;
-  margin-bottom: 97px;
+  margin-top: 153px;
+  margin-bottom: 140px;
   font: var(--SectionTitle);
   color: var(--Headline);
+  transition: all 0.3s ease-in-out;
+${isMobile}{
+  font: var(--MenuTitle);
+  margin-bottom: 90px
+}
 `;
 
 export const StarsWrapper = styled.div`
@@ -23,9 +29,14 @@ export const StarButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 60px;
+  font-size: 80px;
+  margin-bottom: 100px;
   color:#ffca28;
-  transition: transform 0.1s ease;
+  transition: transform 0.3s ease;
+  ${isMobile} {
+  font-size: 35px;
+  margin-bottom: 30px;
+}
 
   &:hover {
     transform: scale(1.1);
@@ -36,4 +47,9 @@ export const StarButton = styled.button`
     pointer-events: none;
     transition: color 0.2s;
   }
+  
 `;
+export const ButtonWrapper = styled.div`
+  margin-bottom: 200px;
+`;
+
