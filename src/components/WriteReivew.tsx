@@ -1,38 +1,118 @@
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import * as S from "../styles/Home/WriteReviewComponentStyle";
 import EachWriteReview from "./EachWriteReview";
-import { dummy } from "../api/dummyData";
+import {dummy} from "../api/dummyData";
+import { getTodayMeal, postReview } from "../api/review";
 import { getGPTQuestion } from "../utils/gpt";
-
 
 type MealType = "조식" | "중식" | "석식";
 
 interface ReviewData {
-
-	menu: string;
-	rating: number;
-	comment: string;
-}
+    menu: string;
+    rating: number;
+    question: string;
+    comment: string;
+  }
+interface TodayMeal {
+    dayInfo: string;
+    id: number;
+    mealType: string;
+    menuNames: string[];
+  }
 
 const WriteReview = () => {
-	const [mealType, setMealType] = useState<MealType>("조식");
-	const [wholeReview, setWholeReview] = useState<string>("");
-	const [freeReview, setFreeReview] = useState<string>("");
+    const [mealType, setMealType] = useState<MealType>("조식");
+    const [todayMeal, setTodayMeal] = useState<TodayMeal>();
+    const [wholeReview, setWholeReview] = useState<string>("");
+    const [freeReview, setFreeReview] = useState<string>("");
+    //식단에 대한 별점과 comment 저장할 것임으로 받아온 식단들을 list 형태로 묶어서 저장
+    const [reviewData, setReviewData] = useState<ReviewData[]>([]);
 	const [questionMap, setQuestionMap] = useState<{ [menu: string]: string }>({});
 
+    //mealtype이 바뀔 때마다 식단 list 초기화
+    const handleMealTypeChange = (type: MealType) => {
+        setMealType(type);
+        const newMeal = dummy.meals.find((meal) => meal.mealType === type);
+        setReviewData(
+          newMeal?.meals.map((menu) => ({
+            menu,
+            rating: 0,
+            question:`${menu}의 맛은 맛있었나요?`,
+            comment: "",
+          })) || []
+        );
+        setWholeReview("");
+        setFreeReview("");
+    }
 
+    const handleSubmitClick = () => {
+        const allRating = reviewData.every((item)=>item.rating!==0);
+        if(allRating){
+            handlePostReview();
+            alert('리뷰가 성공적으로 저장되었습니다.');
+            //서버로 정보 넘기는 코드
+        }else alert('모든 메뉴에 별점을 남겨주세요!');
+    }
 
-	//선택한 meal type에 따라 dummy에서 식단 받아옴
-	const selectedMeal = dummy.meals.find((meal) => meal.mealType == mealType);
+    const handleGetMeal = (selectedMeal:string) => {
+        const fetchTodayMeal = async () => {
+          try {
+            const response = await getTodayMeal(selectedMeal);
+            setTodayMeal(response.result);
+            console.log(response.result);
+          } catch (error) {
+            throw error;
+          }
+        };
+        fetchTodayMeal();
+      };
 
-	//식단에 대한 별점과 comment 저장할 것임으로 받아온 식단들을 list 형태로 묶어서 저장
-	const [reviewData, setReviewData] = useState<ReviewData[]>(
-		selectedMeal?.meals.map((menu) => ({
-			menu, rating: 0, comment: ""
-		})) || []
-	)
-	useEffect(() => {
+    const handlePostReview = async() => {
+            const menuRatings: { [menu: string]: number } = {};
+            const menuAnswers: { [menu: string]: string } = {};
+            const menuQuestions: { [menu: string]: string } = {};
+        
+            reviewData.forEach((item) => {
+            menuRatings[item.menu] = item.rating;
+            menuQuestions[item.menu] = item.question;
+            menuAnswers[item.menu] = item.comment;
+        
+            });
+        
+            try {
+            await postReview(
+                todayMeal?.id?todayMeal.id:1,
+                menuRatings,
+                wholeReview,
+                menuQuestions,
+                menuAnswers,
+                freeReview
+            );
+            console.log("성공");
+            }catch(error){
+                throw error;
+            }
+    }
+
+    useEffect(()=>{
+        if (todayMeal) {
+        setReviewData(
+          todayMeal.menuNames.map((menu) => ({
+            menu,
+            rating: 0,
+            question:`${menu}의 맛은 맛있었나요?`,
+            comment: "",
+          }))
+        );
+      }
+    },[todayMeal]);
+
+    useEffect(()=>{
+        handleGetMeal("LUNCH");
+    },[]);
+
+    useEffect(() => {
 		const fetchQuestionsSequentially = async () => {
 			for (const item of reviewData) {
 				const menu = item.menu;
@@ -46,41 +126,15 @@ const WriteReview = () => {
 						console.error("GPT 질문 생성 실패:", error);
 						setQuestionMap((prev) => ({ ...prev, [menu]: "❌ 질문 생성 실패" }));
 					}
-
-					// ✅ 요청 사이 간격 늘리기
+                // ✅ 요청 사이 간격 늘리기
 					await new Promise((resolve) => setTimeout(resolve, 1000)); // 1초 간격
 				}
 			}
 		};
-
-		fetchQuestionsSequentially();
+        fetchQuestionsSequentially();
 	}, [mealType]);
 
-
-	//mealtype이 바뀔 때마다 식단 list 초기화
-	const handleMealTypeChange = (type: MealType) => {
-		setMealType(type);
-		const newMeal = dummy.meals.find((meal) => meal.mealType === type);
-		setReviewData(
-			newMeal?.meals.map((menu) => ({
-				menu,
-				rating: 0,
-				comment: "",
-			})) || []
-		);
-		setWholeReview("");
-		setFreeReview("");
-	}
-
-	const handleSubmitClick = () => {
-		const allRating = reviewData.every((item) => item.rating !== 0);
-		if (allRating) {
-			alert('리뷰가 성공적으로 저장되었습니다.');
-			//서버로 정보 넘기는 코드
-		} else alert('모든 메뉴에 별점을 남겨주세요!');
-	}
-
-	return (
+    return (
 		<>
 			<S.ReviewDiv>
 				<S.BigText>학식 종류 선택</S.BigText>
@@ -105,26 +159,26 @@ const WriteReview = () => {
 					<S.WholeReviewInput placeholder="전체적인 메뉴에 대한 의견을 작성해주세요." value={wholeReview} onChange={(e) => setWholeReview(e.target.value)} />
 				</div>
 
-				<S.BigText style={{ fontSize: "23px" }}>개별 메뉴 평가</S.BigText>
-				{reviewData.map((menu, index) => (
-					<EachWriteReview
-						key={index}
-						menu={menu.menu}
-						rating={menu.rating}
-						comment={menu.comment}
-						onChangeRating={(newRating) => {
-							const updated = [...reviewData];
-							updated[index].rating = newRating;
-							setReviewData(updated);
-						}}
-						onChangeComment={(newComment) => {
-							const updated = [...reviewData];
-							updated[index].comment = newComment;
-							setReviewData(updated);
-						}}
-						question={questionMap[menu.menu]} // GPT 질문 전달!
-					/>
-				))}
+				<S.BigText style={{fontSize:"23px"}}>개별 메뉴 평가</S.BigText>
+                {reviewData.map((menu, index) => (
+                    <EachWriteReview 
+                        key={index} 
+                        menu={menu.menu} 
+                        rating={menu.rating} 
+                        question={menu.question}
+                        comment={menu.comment} 
+                        onChangeRating={(newRating) => {
+                        const updated = [...reviewData];
+                        updated[index].rating = newRating;
+                        setReviewData(updated);
+                        }}
+                        onChangeComment={(newComment) => {
+                        const updated = [...reviewData];
+                        updated[index].comment = newComment;
+                        setReviewData(updated);
+                        }}
+                    />
+                ))}
 
 				<div>
 					<S.Text>자유 의견</S.Text>
