@@ -5,15 +5,16 @@ import Star from "./Star";
 interface Props {
   menu: string;
   rating: number;
+  question: string;
   comment: string;
   onChangeRating: (rating: number) => void;
   onChangeComment: (comment: string) => void;
 }
 
-const EachWriteReview: React.FC<Props> = ({menu, rating, comment, onChangeRating, onChangeComment}) => {
+const EachWriteReview: React.FC<Props> = ({menu, rating, question, comment, onChangeRating, onChangeComment}) => {
   return (
     <S.EachReviewDiv>
-      <S.DetailText>Q. {menu}의 맛은 어떠셨나요?</S.DetailText>
+      <S.DetailText>Q. {question}</S.DetailText>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <S.DetailText>{menu}</S.DetailText>
         <Star rating={rating} onChangeRating={onChangeRating}/>
