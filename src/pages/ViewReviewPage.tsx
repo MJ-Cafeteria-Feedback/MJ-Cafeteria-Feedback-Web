@@ -6,7 +6,7 @@ type Review = {
 	content: string;
 };
 
-const ReviewPage = () => {
+const ViewReviewPage = () => {
 	const [data, setData] = useState<Review[]>([]);
 	const [loading, setLoading] = useState(true);
 
@@ -44,4 +44,4 @@ const ReviewPage = () => {
 	);
 };
 
-export default ReviewPage;
+export default ViewReviewPage;
