@@ -3,18 +3,17 @@ import * as S from "../styles/Home/EachWriteReview";
 import Star from "./Star";
 
 interface Props {
-  menu: string;
-  rating: number;
-  question: string;
-  comment: string;
-  onChangeRating: (rating: number) => void;
-  onChangeComment: (comment: string) => void;
+menu: string;
+	rating: number;
+	comment: string;
+	onChangeRating: (rating: number) => void;
+	onChangeComment: (comment: string) => void;
+	question?: string;
 }
-
-const EachWriteReview: React.FC<Props> = ({menu, rating, question, comment, onChangeRating, onChangeComment}) => {
+const EachWriteReview: React.FC<Props> = ({ menu, rating, comment, onChangeRating, onChangeComment, question }) => {
   return (
     <S.EachReviewDiv>
-      <S.DetailText>Q. {question}</S.DetailText>
+			<S.DetailText>{`Q. ${question}` || `Q. ${menu}에 대한 질문을 생성 중입니다...`}</S.DetailText>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <S.DetailText>{menu}</S.DetailText>
         <Star rating={rating} onChangeRating={onChangeRating}/>
