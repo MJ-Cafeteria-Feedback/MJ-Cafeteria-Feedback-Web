@@ -3,6 +3,7 @@ import * as S from "../styles/Home/EachWriteReview";
 import Star from "./Star";
 
 interface Props {
+
 	menu: string;
 	rating: number;
 	comment: string;
@@ -27,6 +28,7 @@ const EachWriteReview: React.FC<Props> = ({ menu, rating, comment, onChangeRatin
 			/>
 		</S.EachReviewDiv>
 	);
+
 };
 
 export default EachWriteReview;

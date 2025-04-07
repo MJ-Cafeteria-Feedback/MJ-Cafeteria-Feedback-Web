@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import * as S from "../styles/Home/WriteReviewComponentStyle";
 import EachWriteReview from "./EachWriteReview";
@@ -8,6 +9,7 @@ import { getGPTQuestion } from "../utils/gpt";
 type MealType = "조식" | "중식" | "석식";
 
 interface ReviewData {
+
 	menu: string;
 	rating: number;
 	comment: string;
@@ -133,6 +135,7 @@ const WriteReview = () => {
 			<S.SubmitBtn onClick={() => handleSubmitClick()}>제출하기</S.SubmitBtn>
 		</>
 	);
+
 }
 
 export default WriteReview;
