@@ -138,15 +138,15 @@ const WriteReview = () => {
 				<S.BigText>학식 종류 선택</S.BigText>
 				<S.MealTypeDiv>
 					<S.MealTypeLabel>
-						<input type="radio" name="mealType" value="조식" checked={mealType === "조식"} onChange={() => {handleMealTypeChange("조식");handleGetMeal("LUNCH")}} style={{ marginRight: "15px" }} />
+						<input type="radio" name="mealType" value="조식" checked={mealType === "조식"} onChange={() => {handleMealTypeChange("조식"); handleGetMeal("LUNCH")}} style={{ marginRight: "15px" }} />
 						<span>조식</span>
 					</S.MealTypeLabel>
 					<S.MealTypeLabel>
-						<input type="radio" name="mealType" value="중식" onChange={() => {handleMealTypeChange("중식");handleGetMeal("LUNCH")}} style={{ marginRight: "15px" }} />
+						<input type="radio" name="mealType" value="중식" onChange={() => {handleMealTypeChange("중식"); handleGetMeal("LUNCH")}} style={{ marginRight: "15px" }} />
 						<span>중식</span>
 					</S.MealTypeLabel>
 					<S.MealTypeLabel>
-						<input type="radio" name="mealType" value="석식" onChange={() => {handleMealTypeChange("석식");handleGetMeal("DINNER")}} style={{ marginRight: "15px" }} />
+						<input type="radio" name="mealType" value="석식" onChange={() => {handleMealTypeChange("석식"); handleGetMeal("DINNER")}} style={{ marginRight: "15px" }} />
 						<span>석식</span>
 					</S.MealTypeLabel>
 				</S.MealTypeDiv>
