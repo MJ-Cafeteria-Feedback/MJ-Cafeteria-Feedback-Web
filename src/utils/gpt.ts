@@ -14,10 +14,12 @@ export const getGPTQuestion = async (menuName: string): Promise<string> => {
 			messages: [
 				{
 					role: "user",
-					content: `${menuName}에 대해 사용자에게 물어볼 창의적인 질문 하나를 만들어줘.`,
+					content: `학생식당에서 제공된 ${menuName} 메뉴에 대해 평가를 유도하는 질문 하나를 만들어줘. 
+맛, 온도, 식감, 양, 개선점 등 중 하나를 자연스럽게 물어보는 형식이면 좋아.한문장 이내로 해줘.`
+					,
 				},
 			],
-			max_tokens: 60,
+			max_tokens: 100,
 		}),
 	});
 
