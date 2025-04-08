@@ -143,11 +143,11 @@ const WriteReview = () => {
 						<span>조식</span>
 					</S.MealTypeLabel>
 					<S.MealTypeLabel>
-						<input type="radio" name="mealType" value="중식" onChange={() => {handleMealTypeChange("중식");handleGetMeal("LUNCH")}} style={{ marginRight: "15px" }} />
+						<input type="radio" name="mealType" value="중식" onChange={() => {handleMealTypeChange("중식"); handleGetMeal("LUNCH")}} style={{ marginRight: "15px" }} />
 						<span>중식</span>
 					</S.MealTypeLabel>
 					<S.MealTypeLabel>
-						<input type="radio" name="mealType" value="석식" onChange={() => {handleMealTypeChange("석식");handleGetMeal("DINNER")}} style={{ marginRight: "15px" }} />
+						<input type="radio" name="mealType" value="석식" onChange={() => {handleMealTypeChange("석식"); handleGetMeal("DINNER")}} style={{ marginRight: "15px" }} />
 						<span>석식</span>
 					</S.MealTypeLabel>
 				</S.MealTypeDiv>
