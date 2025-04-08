@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import * as S from "../styles/Home/WriteReviewComponentStyle";
 import EachWriteReview from "./EachWriteReview";
-import {dummy} from "../api/dummyData";
 import { getTodayMeal, postReview } from "../api/review";
 import { getGPTQuestion } from "../utils/gpt";
 
@@ -33,9 +32,8 @@ const WriteReview = () => {
     //mealtype이 바뀔 때마다 식단 list 초기화
     const handleMealTypeChange = (type: MealType) => {
         setMealType(type);
-        const newMeal = dummy.meals.find((meal) => meal.mealType === type);
         setReviewData(
-          newMeal?.meals.map((menu) => ({
+          todayMeal?.menuNames.map((menu) => ({
             menu,
             rating: 0,
             question:`${menu}의 맛은 맛있었나요?`,
@@ -112,27 +110,27 @@ const WriteReview = () => {
         handleGetMeal("LUNCH");
     },[]);
 
-    useEffect(() => {
-		const fetchQuestionsSequentially = async () => {
-			for (const item of reviewData) {
-				const menu = item.menu;
+    // useEffect(() => {
+	// 	const fetchQuestionsSequentially = async () => {
+	// 		for (const item of reviewData) {
+	// 			const menu = item.menu;
 
-				// 이미 있는 질문은 다시 요청 안 함
-				if (!questionMap[menu]) {
-					try {
-						const question = await getGPTQuestion(menu);
-						setQuestionMap((prev) => ({ ...prev, [menu]: question }));
-					} catch (error) {
-						console.error("GPT 질문 생성 실패:", error);
-						setQuestionMap((prev) => ({ ...prev, [menu]: "❌ 질문 생성 실패" }));
-					}
-                // ✅ 요청 사이 간격 늘리기
-					await new Promise((resolve) => setTimeout(resolve, 1000)); // 1초 간격
-				}
-			}
-		};
-        fetchQuestionsSequentially();
-	}, [mealType]);
+	// 			// 이미 있는 질문은 다시 요청 안 함
+	// 			if (!questionMap[menu]) {
+	// 				try {
+	// 					const question = await getGPTQuestion(menu);
+	// 					setQuestionMap((prev) => ({ ...prev, [menu]: question }));
+	// 				} catch (error) {
+	// 					console.error("GPT 질문 생성 실패:", error);
+	// 					setQuestionMap((prev) => ({ ...prev, [menu]: "❌ 질문 생성 실패" }));
+	// 				}
+    //             // ✅ 요청 사이 간격 늘리기
+	// 				await new Promise((resolve) => setTimeout(resolve, 1000)); // 1초 간격
+	// 			}
+	// 		}
+	// 	};
+    //     fetchQuestionsSequentially();
+	// }, [mealType]);
 
     return (
 		<>
@@ -140,15 +138,15 @@ const WriteReview = () => {
 				<S.BigText>학식 종류 선택</S.BigText>
 				<S.MealTypeDiv>
 					<S.MealTypeLabel>
-						<input type="radio" name="mealType" value="조식" checked={mealType === "조식"} onChange={() => handleMealTypeChange("조식")} style={{ marginRight: "15px" }} />
+						<input type="radio" name="mealType" value="조식" checked={mealType === "조식"} onChange={() => {handleMealTypeChange("조식");handleGetMeal("LUNCH")}} style={{ marginRight: "15px" }} />
 						<span>조식</span>
 					</S.MealTypeLabel>
 					<S.MealTypeLabel>
-						<input type="radio" name="mealType" value="중식" onChange={() => handleMealTypeChange("중식")} style={{ marginRight: "15px" }} />
+						<input type="radio" name="mealType" value="중식" onChange={() => {handleMealTypeChange("중식");handleGetMeal("LUNCH")}} style={{ marginRight: "15px" }} />
 						<span>중식</span>
 					</S.MealTypeLabel>
 					<S.MealTypeLabel>
-						<input type="radio" name="mealType" value="석식" onChange={() => handleMealTypeChange("석식")} style={{ marginRight: "15px" }} />
+						<input type="radio" name="mealType" value="석식" onChange={() => {handleMealTypeChange("석식");handleGetMeal("DINNER")}} style={{ marginRight: "15px" }} />
 						<span>석식</span>
 					</S.MealTypeLabel>
 				</S.MealTypeDiv>
