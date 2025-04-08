@@ -110,27 +110,28 @@ const WriteReview = () => {
         handleGetMeal("LUNCH");
     },[]);
 
-    // useEffect(() => {
-	// 	const fetchQuestionsSequentially = async () => {
-	// 		for (const item of reviewData) {
-	// 			const menu = item.menu;
+    useEffect(() => {
+		const fetchQuestionsSequentially = async () => {
+			for (const item of reviewData) {
+				const menu = item.menu;
 
-	// 			// 이미 있는 질문은 다시 요청 안 함
-	// 			if (!questionMap[menu]) {
-	// 				try {
-	// 					const question = await getGPTQuestion(menu);
-	// 					setQuestionMap((prev) => ({ ...prev, [menu]: question }));
-	// 				} catch (error) {
-	// 					console.error("GPT 질문 생성 실패:", error);
-	// 					setQuestionMap((prev) => ({ ...prev, [menu]: "❌ 질문 생성 실패" }));
-	// 				}
-    //             // ✅ 요청 사이 간격 늘리기
-	// 				await new Promise((resolve) => setTimeout(resolve, 1000)); // 1초 간격
-	// 			}
-	// 		}
-	// 	};
-    //     fetchQuestionsSequentially();
-	// }, [mealType]);
+				// 이미 있는 질문은 다시 요청 안 함
+				if (!questionMap[menu]) {
+					try {
+						const question = await getGPTQuestion(menu);
+						setQuestionMap((prev) => ({ ...prev, [menu]: question }));
+            console.log("성공!");
+					} catch (error) {
+						console.error("GPT 질문 생성 실패:", error);
+						setQuestionMap((prev) => ({ ...prev, [menu]: "❌ 질문 생성 실패" }));
+					}
+                // ✅ 요청 사이 간격 늘리기
+					await new Promise((resolve) => setTimeout(resolve, 1000)); // 1초 간격
+				}
+			}
+		};
+        fetchQuestionsSequentially();
+	}, [mealType]);
 
     return (
 		<>

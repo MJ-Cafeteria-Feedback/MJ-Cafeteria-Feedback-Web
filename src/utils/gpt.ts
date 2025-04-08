@@ -7,6 +7,7 @@ export const getGPTQuestion = async (menuName: string): Promise<string> => {
 		headers: {
 			"Content-Type": "application/json",
 			Authorization: `Bearer ${apiKey}`,
+			"OpenAI-Project": "proj_GqFQUyvIEXk1yOB6VnpSFAWH",
 		},
 		body: JSON.stringify({
 			model: "gpt-3.5-turbo",
