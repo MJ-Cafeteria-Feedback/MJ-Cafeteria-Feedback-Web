@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as S from "../styles/Home/ViewReviewPageStyle";
-import WriteReview from "../components/WriteReview";
+import WriteReview from "../components/WriteReivew";
 
 const WriteReviewPage = () => {
 	const [menu, setMenu] = useState<string>("메뉴 리뷰")
