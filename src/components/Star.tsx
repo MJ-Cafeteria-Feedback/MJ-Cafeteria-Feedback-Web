@@ -1,7 +1,7 @@
 
 import { FaRegStar, FaStar, FaStarHalfAlt } from 'react-icons/fa';
 import * as S from '../styles/Home/StarComponentStyle';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 interface StarProps {
