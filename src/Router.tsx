@@ -10,7 +10,7 @@ const Router = () => {
 		<BrowserRouter>
 			<Layout>
 				<Routes>
-					<Route path="/review" element={<ReviewPage />}
+					<Route path="/team5/review" element={<ReviewPage />}
 					/>
 				</Routes>
 			</Layout>
